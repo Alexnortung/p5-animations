@@ -1,27 +1,32 @@
-var circles = 9;
+const circles = 9;
 var tick = 0;
 var center;
-var circleWidth = 10;
-var circleVel = 1.5;
-var circleArr = [];
+const circleWidth = 10;
+const circleVel = 1.5;
+const circleArr = [];
 
 const rad2Deg = 57.2958;
 
 function setup() {
   createCanvas(800,600);
   center = new Vector(width/2, height/2);
-  for (let i = 1; i <= circles; i++) {
-    const cDir = Circle.CLOCKWISE;
-    const circle = new Circle(
-      center.add(
-        new Vector(0, circleWidth * 2 * i)
-      ), 
-      circleVel, 
-      center, 
-      circleWidth, 
-      cDir
-    );
-    circleArr.push(circle);
+  for (let j = 0; j < 2; j++) {
+    const cDir = j % 2 === 2 ? Circle.CLOCKWISE : Circle.COUNTERCLOCKWISE;
+    const posMultiplier = j % 2 === 0 ? 1 : -1;
+    
+    for (let i = 1; i <= circles; i++) {
+      const circle = new Circle(
+        center.add(
+          new Vector(0, circleWidth * 2 * i * posMultiplier)
+        ), 
+        circleVel, 
+        center, 
+        circleWidth, 
+        cDir
+      );
+      circleArr.push(circle);
+      
+    }
     
   }
 }
@@ -33,6 +38,8 @@ function draw () {
     circleArr[i].draw();
     circleArr[i].update();
   }
+
+  // circleArr[0].moveOrigin(0,1);
 
 
 

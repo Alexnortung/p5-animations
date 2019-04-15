@@ -1,4 +1,8 @@
 function Vector(x, y) {
+  if (x instanceof Vector || (typeof x === "object")) {
+    y = x.y;
+    x = x.x;
+  } 
   this.x = x || 0;
   this.y = y || 0;
 };

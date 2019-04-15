@@ -1,8 +1,8 @@
 class Circle {
     constructor(position, velocity, rotationOrigin, size, direction) {
-        this.position = position;
+        this.position = new Vector(position);
         this.velocity = velocity;
-        this.rotationOrigin = rotationOrigin;
+        this.rotationOrigin = new Vector(rotationOrigin.x, rotationOrigin.y);
         this.size = size;
         this.rotationRadius = position.subtract(rotationOrigin).getMagnitude();
         this.direction = typeof direction === "number" ? direction : Circle.CLOCKWISE;
@@ -28,6 +28,34 @@ class Circle {
     draw() {
         ellipse(this.position.x, this.position.y, this.size);
     }
+
+    setOrigin(newPos) {
+        this.rotationOrigin = newPos;
+    }
+
+    moveOrigin(x, y) {
+        if (typeof x !== "number") {
+            x = 0;
+        }
+        if (typeof y !== "number") {
+            y = 0;
+        }
+
+        const moveVector = new Vector(x, y);
+        this.rotationOrigin.addTo(moveVector);
+
+    }
+
+
+    setPartners(partners) {
+
+    }
+
+
+
+
+
+
 
     static get CLOCKWISE() {
         return 1;
