@@ -4,6 +4,7 @@ var center;
 const circleWidth = 10;
 const circleVel = 1.5;
 const circleArr = [];
+const drawArr = [];
 
 const rad2Deg = 57.2958;
 
@@ -29,6 +30,12 @@ function setup() {
     }
     
   }
+
+  const c1 = circleArr[1];
+  const c2 = circleArr[8];
+  const connection = new Connection([c2], c1, 0.75);
+  drawArr.push(connection);
+
 }
 
 function draw () {
@@ -38,6 +45,10 @@ function draw () {
     circleArr[i].draw();
     circleArr[i].update();
   }
+
+  drawArr.forEach(o => {
+    o.draw();
+  });
 
   // circleArr[0].moveOrigin(0,1);
 
