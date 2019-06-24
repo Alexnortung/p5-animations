@@ -15,6 +15,7 @@ function setup () {
     center = new Vector(width / 2, height / 2);
     centerMax = Math.sqrt(2) * Math.max(center.x, center.y)
     // ml = new MovingLine(center.x, 0, center.x, height);
+    // frameRate(5);
 }
 
 function draw() {
@@ -114,12 +115,33 @@ function draw() {
             progress = Math.min(progress, 1);
 
             //the 4 points
-            const loops = 2 ** (o + 2);
+            const loops = 4 + (o * 8);
             for (let i = 0; i < loops; i++) {
-                let xAdd = i % 2 === 0 ? 0.5 * lineSpread : -0.5 * lineSpread;
-                let yAdd = Math.floor(i / 2) === 0 ? 0.5 * lineSpread : -0.5 * lineSpread;
+                let n = i % (1 + o * 2);
+                let xAdd, yAdd;
+                xAdd = -0.5 * lineSpread;
+                yAdd = -0.5 * lineSpread;
+                // xAdd = i % 2 === 0 ? 0.5 * lineSpread : -0.5 * lineSpread;
+                // yAdd = Math.floor(i / 2) === 0 ? 0.5 * lineSpread : -0.5 * lineSpread;
                 xAdd *= ((o + 1) * 2) - 1;
                 yAdd *= ((o + 1) * 2) - 1;
+
+                if (i < loops * 1 / 4) {
+                    xAdd += lineSpread * n;
+                    
+                } else if (i < loops * 2 / 4) {
+                    xAdd *= -1;
+                    yAdd += lineSpread * n;
+                    
+                } else if (i < loops * 3 / 4) {
+                    xAdd *= -1;
+                    yAdd *= -1;
+                    xAdd -= lineSpread * n;
+                } else {
+                    yAdd *= -1;
+                    yAdd -= lineSpread * n;
+                }
+                
                 const p1 = new Vector(center.x + xAdd, center.y + yAdd);
 
                 linesFromPoint(p1, progress);
