@@ -1,7 +1,9 @@
 const linesAmount = 6;
-let zoomScale = 1;
+let zoomScale = 1.1;
 let rotation = 0;
+const rotationAdd = 0.0022;
 let lineSpread = 100;
+const originalLineSpread = lineSpread;
 let linesFromCenter = 7;
 let center = new Vector();
 let centerMax;
@@ -20,12 +22,14 @@ function setup () {
 
 function draw() {
     background(255);
-    // rotation += 0.0015;
-    // lineSpread += 0.1;
+    
+    push();
+    rotation += rotationAdd;
+    lineSpread = lineSpreadFunction(tick);
     translate(center.x, center.y);
     // rotate(radians(65));
-    scale(zoomScale);
     rotate(rotation);
+    scale(zoomScale);
     translate(-center.x, -center.y);
 
     //center lines
@@ -163,6 +167,35 @@ function draw() {
 
 
     tick++;
+
+    if (rotation >= PI / 4) {
+        rotation = rotation % (PI / 4);
+        tick = 0;
+        lineSpread = originalLineSpread;
+    }
+
+    pop();
+}
+
+function lineSpreadFunction(x) {
+    const ticks = (PI / 4) / rotationAdd;
+    // f(x) = y = b * a^x
+    // f(ticks) = 2 * b
+    // 2*b = b * a^ticks
+    // 2 = a^ticks
+    // log(2) = ticks * log(a)
+    // log(a) = log(2) / ticks
+    // a = 10 ^ (log(2) / ticks)
+    const b = originalLineSpread;
+    const a = 10 ** (Math.log10(Math.sqrt(2)) / ticks);
+    // console.log(a, b, ticks);
+    
+
+    // console.log(ticks);
+    
+
+    return b * (a ** x);
+
 }
 
 function linesFromPoint(point, progress) {
