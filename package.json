@@ -1,0 +1,28 @@
+{
+  "name": "p5-animations",
+  "version": "1.0.0",
+  "description": "My p5 animations",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node_modules/http-server/bin/http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexnortung/p5-animations.git"
+  },
+  "keywords": [
+    "p5",
+    "animation"
+  ],
+  "author": "Alexander Nortung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexnortung/p5-animations/issues"
+  },
+  "homepage": "https://github.com/Alexnortung/p5-animations#readme",
+  "dependencies": {
+    "p5": "^0.8.0",
+    "http-server": "^0.11.1"
+  }
+}
